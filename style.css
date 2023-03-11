@@ -1,0 +1,91 @@
+html, body {
+    margin:0;
+    padding:0;
+}
+
+body {
+    width:100vw;
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    flex-direction: column;
+}
+
+calculator {
+    height:70%;
+    width:300px;
+    background:grey;
+    padding:20px;
+    border:10px outset;
+    border-radius:20px;
+    display:flex;
+    flex-wrap:wrap;
+    gap:10px;
+}
+
+screen {
+    background-color:palegreen;
+    border:black 5px solid;
+    border-radius:10px;
+    display:flex;
+    align-items: center;
+    justify-content: end;
+    flex: 1 1 100%;
+    font-size:45px;
+    font-family: 'VT323', monospace;
+}
+
+buttons {
+    display:flex;
+    width:100%;
+    flex-direction:column;
+    align-items: center;
+    justify-content: center;
+    flex: 1 1 100%;
+    gap:5px;
+}
+
+row {
+    display:flex;
+    gap:5px;
+    width:100%;
+    height:20%;
+    align-items: center;
+    justify-content: center;
+}
+
+button {
+    gap:5px;
+    background-color: lightgray;
+    border:gray 5px outset;
+    border-radius:5px;
+    font-size:20px;
+    cursor:pointer;
+}
+
+button:hover {
+    background-color:white;
+}
+
+button.operator {
+    border:red 5px outset!important;
+    background-color:orangered!important;
+}
+
+button.operator:hover {
+    background-color:orange!important;
+}
+
+row:first-child button {
+    width:50%!important;
+}
+
+row button {
+    width:25%;
+    height:100%;
+}
+
+#answers {
+    margin-right:5px;
+}
