@@ -32,8 +32,9 @@ screen {
     align-items: center;
     justify-content: end;
     flex: 1 1 100%;
-    font-size:45px;
+    font-size:115px;
     font-family: 'VT323', monospace;
+    height:35%;
 }
 
 buttons {
@@ -44,6 +45,7 @@ buttons {
     justify-content: center;
     flex: 1 1 100%;
     gap:5px;
+    height:calc(65% - 20px);
 }
 
 row {
@@ -66,14 +68,17 @@ button {
 
 button:hover {
     background-color:white;
+    border:lightgray 5px outset!important;
 }
 
-button.operator {
+button.operator, button.control {
     border:red 5px outset!important;
     background-color:orangered!important;
+    color:white;
 }
 
-button.operator:hover {
+button.operator:hover,  button.control:hover {
+    border:orangered 5px outset!important;
     background-color:orange!important;
 }
 
@@ -88,4 +93,5 @@ row button {
 
 #answers {
     margin-right:5px;
+    color:darkgreen;
 }
