@@ -1,8 +1,15 @@
 //DECLARATIONS:
 let equation = "",
-    operators = "÷x-=+";
+    operators = "÷x-+";
 
 //FUNCTIONS:
+//function that checks if a string contains a decimal.
+function containsDecimal(str) {
+    if (str.indexOf(".") > -1) {
+        return true;
+    }
+}
+
 //function that checks if a string contains any of the calculator's operators.
 function containsOperator(str) {
     let values = [undefined, undefined];
@@ -25,6 +32,37 @@ function lastCharIsOperator(str) {
     }
 }
 
+//function that splits equation into an array as follows: [(first number entered), (second number entered), (operator)]
+function equationSplitter(str) {
+    let operator = containsOperator(str)[1],
+        numbers = str.split(operator);
+    numbers.push(operator);
+    return numbers;
+}
+
+//function that solves equation using operator discovered by containsOperator.
+function solveEquation(str) {
+    let numbers = equationSplitter(str),
+        numberOne = parseFloat(numbers[0]),
+        numberTwo = parseFloat(numbers[1]),
+        operator = numbers[2],
+        result;
+    if (operator == "÷") {
+        result = numberOne / numberTwo
+    } else if (operator == "x") {
+        result = numberOne * numberTwo
+    } else if (operator == "-") {
+        result = numberOne - numberTwo
+    } else if (operator == "+") {
+        result = numberOne + numberTwo
+    }
+    return result.toString();
+}
+
+function controlClass() {
+    
+}
+
 //button clicking functions.
 const btns = document.querySelectorAll('.btn');
 
@@ -35,40 +73,50 @@ for (const btn of btns) {
             classes = btn.classList;
         //control classes.
         if (classes.contains("control")) {
-            //clear screen.
+            //clear button: clear screen.
             if (clickedBtn == "clear") {
                 answers.innerHTML = "";
                 equation = "";
-            //delete last character on screen.
+            //delete button: deletes last character on screen.
             } else if (clickedBtn == "delete") {
                 equation = equation.substring(0, equation.length - 1);
                 answers.innerHTML = equation;
+            //equals button: solves equation.
             } else {
-                console.log(clickedBtn);
+                equation = (solveEquation(equation));
+                answers.innerHTML = equation;
             }
         //number classes.
         } else if (classes.contains("number")) {
-            //if equation is empty, 
-            if (equation == "") {
-                equation = clickedBtn;
-                answers.innerHTML = clickedBtn;
+            //decimal button: adds decimal if decimal is not already present in equation.
+            if (clickedBtn == ".") {
+                if (containsDecimal(equation) == true) {
+                    //do nothing.
+                } else {
+                    equation = equation + clickedBtn;
+                    answers.innerHTML = equation;
+                }
+            //number buttons: add numbers onto equation.
             } else {
                 equation = equation + clickedBtn;
                 answers.innerHTML = equation;
-                }
+            }
         //operator classes.
         } else if (classes.contains("operator")) {
+            //if equation is empty, do not add operator.
             if (equation == "") {
-                //add no operator
+                //do nothing
             //if operator is last character in equation, replace operator with new button clicked.
             } else if (lastCharIsOperator(equation) == true) {
                 equation = equation.substring(0, equation.length - 1);
                 equation = equation + clickedBtn;
                 answers.innerHTML = equation;
-            //if operator is NOT at last of equation, solve current equation, place solution in screen, then add clicked operator after solution.
+            //if operator is NOT the last of equation, solve current equation, place solution in screen, then add clicked operator after solution.
             } else if (containsOperator(equation)[0] == true
-                && lastCharIsOperator(equation) == false) {
-                console.log("operator present, solve equation");
+            && lastCharIsOperator(equation) == false) {
+                equation = (solveEquation(equation));
+                equation = equation + clickedBtn;
+                answers.innerHTML = equation;
             } else {
                 equation = equation + clickedBtn;
                 answers.innerHTML = equation;
